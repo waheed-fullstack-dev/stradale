@@ -3,6 +3,23 @@ defmodule Stradale.Accounts.User do
   import Ecto.Changeset
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
+
+  @required_fields ~w|
+    first_name
+    last_name
+    email
+    password
+  |a
+
+  @optional_fields ~w|
+    id
+    confirm_at
+    is_active
+    is_admin
+  |a
+
+  @all_fields @required_fields ++ @optional_fields
+
   schema "users" do
     field :first_name, :string
     field :last_name, :string
@@ -41,7 +58,8 @@ defmodule Stradale.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, @all_fields)
+    |> validate_required(@required_fields)
     |> validate_email(opts)
     |> validate_password(opts)
   end
