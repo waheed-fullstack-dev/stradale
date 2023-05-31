@@ -1,0 +1,39 @@
+<.header>
+  Inventory <%= @inventory.id %>
+  <:subtitle>This is a inventory record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/inventories/#{@inventory}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit inventory</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="row">
+  <h2 class="py-5">General Details</h2>
+  <.list>
+    <:item title="Inventory type"><%= @inventory.inventory_type %></:item>
+    <:item title="Make"><%= @inventory.make %></:item>
+    <:item title="Price"><%= @inventory.price %></:item>
+    <:item title="Exterior"><%= @inventory.exterior %></:item>
+    <:item title="Interior"><%= @inventory.interior %></:item>
+    <:item title="Power Train"><%= @inventory.power_train %></:item>
+    <:item title="Mileage"><%= @inventory.mileage %></:item>
+    <:item title="Drive Train"><%= @inventory.drive_train %></:item>
+    <:item title="Transmission"><%= @inventory.transmission %></:item>
+    <:item title="status"><%= @inventory.status %></:item>
+    <:item title="Notes"><%= @inventory.notes %></:item>
+  </.list>
+</div>
+
+<.back navigate={~p"/inventories"}>Back to inventories</.back>
+
+<.modal :if={@live_action == :edit} id="inventory-modal" show on_cancel={JS.patch(~p"/inventories/#{@inventory}")}>
+  <.live_component
+    module={StradaleWeb.InventoryLive.FormComponent}
+    id={@inventory.id}
+    title={@page_title}
+    action={@live_action}
+    inventory={@inventory}
+    patch={~p"/inventories/#{@inventory}"}
+  />
+</.modal>

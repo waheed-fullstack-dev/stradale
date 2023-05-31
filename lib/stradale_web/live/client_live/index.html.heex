@@ -1,0 +1,51 @@
+<.header>
+  Listing Clients
+  <:actions>
+    <.link patch={~p"/clients/new"}>
+      <.button>New Client</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="clients"
+  rows={@streams.clients}
+  row_click={fn {_id, client} -> JS.navigate(~p"/clients/#{client}") end}
+>
+  <:col :let={{_id, client}} label="First name"><%= client.first_name %></:col>
+  <:col :let={{_id, client}} label="Middle name"><%= client.middle_name %></:col>
+  <:col :let={{_id, client}} label="Last name"><%= client.last_name %></:col>
+  <:col :let={{_id, client}} label="Email"><%= client.email %></:col>
+  <:col :let={{_id, client}} label="Phone"><%= client.phone %></:col>
+  <:col :let={{_id, client}} label="City"><%= client.city %></:col>
+  <:col :let={{_id, client}} label="Province"><%= client.province %></:col>
+  <:col :let={{_id, client}} label="Postal code"><%= client.postal_code %></:col>
+  <:col :let={{_id, client}} label="Country"><%= client.country %></:col>
+  <:col :let={{_id, client}} label="Driver license"><%= client.driver_license %></:col>
+  <:col :let={{_id, client}} label="Street address"><%= client.street_address %></:col>
+  <:action :let={{_id, client}}>
+    <div class="sr-only">
+      <.link navigate={~p"/clients/#{client}"}>Show</.link>
+    </div>
+    <.link patch={~p"/clients/#{client}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, client}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: client.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="client-modal" show on_cancel={JS.patch(~p"/clients")}>
+  <.live_component
+    module={StradaleWeb.ClientLive.FormComponent}
+    id={@client.id || :new}
+    title={@page_title}
+    action={@live_action}
+    client={@client}
+    patch={~p"/clients"}
+  />
+</.modal>

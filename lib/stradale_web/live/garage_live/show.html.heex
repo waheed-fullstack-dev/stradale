@@ -1,0 +1,61 @@
+<.header>
+  Garage <%= @garage.id %>
+  <:subtitle>This is a garage record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/garages/#{@garage}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit garage</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="row">
+  <h2 class="py-5">General Details</h2>
+  <.list>
+    <:item title="Serial Number"><%= @garage.serial_number %></:item>
+    <:item title="Plate number"><%= @garage.plate_number %></:item>
+    <:item title="Odometer Reading"><%= @garage.odometer_reading %></:item>
+    <:item title="Year"><%= @garage.year %></:item>
+    <:item title="Make"><%= @garage.make %></:item>
+    <:item title="Style"><%= @garage.style %></:item>
+    <:item title="Color"><%= @garage.color %></:item>
+    <:item title="Intake type"><%= @garage.intake_type %></:item>
+    <:item title="Inventory type"><%= @garage.inventory_type %></:item>
+    <:item title="Date In Stock"><%= @garage.date_into_stock %></:item>
+    <:item title="Date Out Stock"><%= @garage.date_out_stock %></:item>
+    <:item title="Permit"><%= @garage.permit %></:item>
+    <:item title="Consignement"><%= @garage.consignement %></:item>
+    <:item title="Notes"><%= @garage.notes %></:item>
+  </.list>
+</div>
+
+<div class="row">
+  <h2 class="py-5">Purchase Info</h2>
+  <.list>
+    <:item title="First Name"><%= @garage.purchase_from_first_name %></:item>
+    <:item title="Last Name"><%= @garage.purchase_from_last_name %></:item>
+    <:item title="Address"><%= @garage.purchase_from_address %></:item>
+  </.list>
+</div>
+
+<div class="row">
+  <h2 class="py-5">Sale Info</h2>
+  <.list>
+    <:item title="First Name"><%= @garage.sale_to_first_name %></:item>
+    <:item title="Last Name"><%= @garage.sale_to_last_name %></:item>
+    <:item title="Address"><%= @garage.sale_to_address %></:item>
+  </.list>
+</div>
+
+
+<.back navigate={~p"/garages"}>Back to garages</.back>
+
+<.modal :if={@live_action == :edit} id="garage-modal" show on_cancel={JS.patch(~p"/garages/#{@garage}")}>
+  <.live_component
+    module={StradaleWeb.GarageLive.FormComponent}
+    id={@garage.id}
+    title={@page_title}
+    action={@live_action}
+    garage={@garage}
+    patch={~p"/garages/#{@garage}"}
+  />
+</.modal>

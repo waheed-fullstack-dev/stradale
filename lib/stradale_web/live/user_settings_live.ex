@@ -1,6 +1,5 @@
 defmodule StradaleWeb.UserSettingsLive do
   use StradaleWeb, :live_view
-
   alias Stradale.Accounts
 
   def render(assigns) do

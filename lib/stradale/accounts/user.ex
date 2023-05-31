@@ -13,7 +13,7 @@ defmodule Stradale.Accounts.User do
 
   @optional_fields ~w|
     id
-    confirm_at
+    confirmed_at
     is_active
     is_admin
   |a

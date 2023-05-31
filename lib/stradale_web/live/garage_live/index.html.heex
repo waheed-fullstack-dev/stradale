@@ -1,0 +1,49 @@
+<.header>
+  Listing Garages
+  <:actions>
+    <.link patch={~p"/garages/new"}>
+      <.button>New Garage</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="garages"
+  rows={@streams.garages}
+  row_click={fn {_id, garage} -> JS.navigate(~p"/garages/#{garage}") end}
+>
+  
+
+  <:col :let={{_id, garage}} label="Owner First Name"><%= garage.purchase_from_first_name %></:col>
+  <:col :let={{_id, garage}} label="Owner Last Name"><%= garage.purchase_from_last_name %></:col>
+  <:col :let={{_id, garage}} label="Owner Address"><%= garage.purchase_from_address %></:col>
+  <:col :let={{_id, garage}} label="Intake type"><%= garage.intake_type %></:col>
+  <:col :let={{_id, garage}} label="Inventory type"><%= garage.inventory_type %></:col>
+  <:col :let={{_id, garage}} label="Plate number"><%= garage.plate_number %></:col>
+
+  <:action :let={{_id, garage}}>
+    <div class="sr-only">
+      <.link navigate={~p"/garages/#{garage}"}>Show</.link>
+    </div>
+    <.link patch={~p"/garages/#{garage}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, garage}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: garage.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="garage-modal" show on_cancel={JS.patch(~p"/garages")}>
+  <.live_component
+    module={StradaleWeb.GarageLive.FormComponent}
+    id={@garage.id || :new}
+    title={@page_title}
+    action={@live_action}
+    garage={@garage}
+    patch={~p"/garages"}
+  />
+</.modal>

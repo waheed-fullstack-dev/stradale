@@ -3,3 +3,23 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+.max-w-2xl {
+max-width: 75rem;
+}
+
+.max-w-3xl {
+max-width: 88rem;
+}
+
+.max-w-sm {
+max-width: 60rem;
+}
+
+.max-w-xl {
+max-width: 65rem;
+}
+
+.leading-6 {
+    line-height: normal;
+}

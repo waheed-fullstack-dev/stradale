@@ -17,12 +17,6 @@ defmodule StradaleWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", StradaleWeb do
-    pipe_through :browser
-
-    get "/", PageController, :home
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", StradaleWeb do
   #   pipe_through :api
@@ -66,8 +60,31 @@ defmodule StradaleWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{StradaleWeb.UserAuth, :ensure_authenticated}] do
+
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+
+      live "/inventories", InventoryLive.Index, :index
+      live "/inventories/new", InventoryLive.Index, :new
+      live "/inventories/:id/edit", InventoryLive.Index, :edit
+
+      live "/inventories/:id", InventoryLive.Show, :show
+      live "/inventories/:id/show/edit", InventoryLive.Show, :edit
+
+      live "/clients", ClientLive.Index, :index
+      live "/clients/new", ClientLive.Index, :new
+      live "/clients/:id/edit", ClientLive.Index, :edit
+
+      live "/clients/:id", ClientLive.Show, :show
+      live "/clients/:id/show/edit", ClientLive.Show, :edit
+
+      live "/", GarageLive.Index, :index
+      live "/garages", GarageLive.Index, :index
+      live "/garages/new", GarageLive.Index, :new
+      live "/garages/:id/edit", GarageLive.Index, :edit
+
+      live "/garages/:id", GarageLive.Show, :show
+      live "/garages/:id/show/edit", GarageLive.Show, :edit
     end
   end
 

@@ -1,0 +1,52 @@
+<.header>
+  Listing Inventories
+  <:actions>
+    <.link patch={~p"/inventories/new"}>
+      <.button>New Inventory</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="inventories"
+  rows={@streams.inventories}
+  row_click={fn {_id, inventory} -> JS.navigate(~p"/inventories/#{inventory}") end}
+>
+  <:col :let={{_id, inventory}} label="Inventory type"><%= inventory.inventory_type %></:col>
+  <:col :let={{_id, inventory}} label="Make"><%= inventory.make %></:col>
+  <:col :let={{_id, inventory}} label="Price"><%= inventory.price %></:col>
+  <:col :let={{_id, inventory}} label="Exterior"><%= inventory.exterior %></:col>
+  <:col :let={{_id, inventory}} label="Interior"><%= inventory.interior %></:col>
+  <:col :let={{_id, inventory}} label="Milage"><%= inventory.mileage %></:col>
+  <:col :let={{_id, inventory}} label="PowerTrain"><%= inventory.power_train %></:col>
+  <:col :let={{_id, inventory}} label="DriveTrain"><%= inventory.drive_train %></:col>
+  <:col :let={{_id, inventory}} label="Transmission"><%= inventory.transmission %></:col>
+  <:col :let={{_id, inventory}} label="Status"><%= inventory.status %></:col>
+
+
+  <:action :let={{_id, inventory}}>
+    <div class="sr-only">
+      <.link navigate={~p"/inventories/#{inventory}"}>Show</.link>
+    </div>
+    <.link patch={~p"/inventories/#{inventory}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, inventory}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: inventory.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="inventory-modal" show on_cancel={JS.patch(~p"/inventories")}>
+  <.live_component
+    module={StradaleWeb.InventoryLive.FormComponent}
+    id={@inventory.id || :new}
+    title={@page_title}
+    action={@live_action}
+    inventory={@inventory}
+    patch={~p"/inventories"}
+  />
+</.modal>
