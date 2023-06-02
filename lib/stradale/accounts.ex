@@ -350,4 +350,15 @@ defmodule Stradale.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Returns the list of User with name and Id only on the base of Role passed in query param.
+  ## Examples
+      iex> dropdown_list_users()
+      [%{id: id, name: name}, ...]
+  """
+  def dropdown_list_users(role) do
+    query = (from u in User, [where: u.user_role == ^role ,select: %{id: u.id, name: u.first_name}])
+    Repo.all(query)
+  end
 end
