@@ -1,61 +1,48 @@
 <.header>
-  Garage <%= @garage.id %>
-  <:subtitle>This is a garage record from your database.</:subtitle>
+  Listing Garages
   <:actions>
-    <.link patch={~p"/garages/#{@garage}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit garage</.button>
+    <.link patch={~p"/garages/new"}>
+      <.button>New Garage</.button>
     </.link>
   </:actions>
 </.header>
 
-<div class="row">
-  <h2 class="py-5">General Details</h2>
-  <.list>
-    <:item title="Serial Number"><%= @garage.serial_number %></:item>
-    <:item title="Plate number"><%= @garage.plate_number %></:item>
-    <:item title="Odometer Reading"><%= @garage.odometer_reading %></:item>
-    <:item title="Year"><%= @garage.year %></:item>
-    <:item title="Make"><%= @garage.make %></:item>
-    <:item title="Style"><%= @garage.style %></:item>
-    <:item title="Color"><%= @garage.color %></:item>
-    <:item title="Intake type"><%= @garage.intake_type %></:item>
-    <:item title="Inventory type"><%= @garage.inventory_type %></:item>
-    <:item title="Date In Stock"><%= @garage.date_into_stock %></:item>
-    <:item title="Date Out Stock"><%= @garage.date_out_stock %></:item>
-    <:item title="Permit"><%= @garage.permit %></:item>
-    <:item title="Consignement"><%= @garage.consignement %></:item>
-    <:item title="Notes"><%= @garage.notes %></:item>
-  </.list>
-</div>
+<.table
+  id="garages"
+  rows={@streams.garages}
+  row_click={fn {_id, garage} -> JS.navigate(~p"/garages/#{garage}") end}
+>
+  
+  <:col :let={{_id, garage}} label="Owner First Name"><%= garage.purchase_from_first_name %></:col>
+  <:col :let={{_id, garage}} label="Owner Last Name"><%= garage.purchase_from_last_name %></:col>
+  <:col :let={{_id, garage}} label="Owner Address"><%= garage.purchase_from_address %></:col>
+  <:col :let={{_id, garage}} label="Intake type"><%= garage.intake_type %></:col>
+  <:col :let={{_id, garage}} label="Inventory type"><%= garage.inventory_type %></:col>
+  <:col :let={{_id, garage}} label="Plate number"><%= garage.plate_number %></:col>
 
-<div class="row">
-  <h2 class="py-5">Purchase Info</h2>
-  <.list>
-    <:item title="First Name"><%= @garage.purchase_from_first_name %></:item>
-    <:item title="Last Name"><%= @garage.purchase_from_last_name %></:item>
-    <:item title="Address"><%= @garage.purchase_from_address %></:item>
-  </.list>
-</div>
+  <:action :let={{_id, garage}}>
+    <div class="sr-only">
+      <.link navigate={~p"/garages/#{garage}"}>Show</.link>
+    </div>
+    <.link patch={~p"/garages/#{garage}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, garage}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: garage.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
 
-<div class="row">
-  <h2 class="py-5">Sale Info</h2>
-  <.list>
-    <:item title="First Name"><%= @garage.sale_to_first_name %></:item>
-    <:item title="Last Name"><%= @garage.sale_to_last_name %></:item>
-    <:item title="Address"><%= @garage.sale_to_address %></:item>
-  </.list>
-</div>
-
-
-<.back navigate={~p"/garages"}>Back to garages</.back>
-
-<.modal :if={@live_action == :edit} id="garage-modal" show on_cancel={JS.patch(~p"/garages/#{@garage}")}>
+<.modal :if={@live_action in [:new, :edit]} id="garage-modal" show on_cancel={JS.patch(~p"/garages")}>
   <.live_component
     module={StradaleWeb.GarageLive.FormComponent}
-    id={@garage.id}
+    id={@garage.id || :new}
     title={@page_title}
     action={@live_action}
     garage={@garage}
-    patch={~p"/garages/#{@garage}"}
+    patch={~p"/garages"}
   />
 </.modal>

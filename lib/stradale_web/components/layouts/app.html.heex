@@ -10,12 +10,21 @@
         <%= if @current_user do %>
           <li>
             <.link
+              href={~p"/users"}
+              class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            >
+              Staff Members
+            </.link>
+          </li>
+          <li>
+            <.link
               href={~p"/clients"}
               class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
             >
               Clients
             </.link>
           </li>
+          
           <li>
             <.link
               href={~p"/inventories"}

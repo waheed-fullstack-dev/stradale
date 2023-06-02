@@ -8,6 +8,14 @@ defmodule Stradale.Accounts do
 
   alias Stradale.Accounts.{User, UserToken, UserNotifier}
 
+  def list_users() do
+    Repo.all(User)
+  end
+
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
+  end
+
   ## Database getters
 
   @doc """

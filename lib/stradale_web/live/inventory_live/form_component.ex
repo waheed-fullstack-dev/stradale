@@ -97,6 +97,8 @@ defmodule StradaleWeb.InventoryLive.FormComponent do
   end
 
   @impl true
+  @spec handle_event(<<_::32, _::_*32>>, map, %{:assigns => atom | map, optional(any) => any}) ::
+          {:noreply, map}
   def handle_event("validate", %{"inventory" => inventory_params}, socket) do
     changeset =
       socket.assigns.inventory

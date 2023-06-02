@@ -9,13 +9,6 @@ defmodule StradaleWeb.UserRegistrationLive do
     <div class="mx-auto max-w-sm">
       <.header class="text-center">
         Register for an account
-        <:subtitle>
-          Already registered?
-          <.link navigate={~p"/users/log_in"} class="font-semibold text-brand hover:underline">
-            Sign in
-          </.link>
-          to your account now.
-        </:subtitle>
       </.header>
 
       <.simple_form
@@ -39,7 +32,7 @@ defmodule StradaleWeb.UserRegistrationLive do
         <.input field={@form[:user_role]} type="select" label="Select role" options={["staff", "sales_person", "sales_manager", "finance_manager"]} required />
 
         <:actions>
-          <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
+          <.button phx-disable-with="Add new staff..." class="w-full">Add Staff</.button>
         </:actions>
       </.simple_form>
     </div>
