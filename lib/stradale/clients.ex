@@ -101,4 +101,14 @@ defmodule Stradale.Clients do
   def change_client(%Client{} = client, attrs \\ %{}) do
     Client.changeset(client, attrs)
   end
+  @doc """
+  Returns the list of clients with name and Id only.
+  ## Examples
+      iex> dropdown_list_clients()
+      [%{id: id, name: name}, ...]
+  """
+  def dropdown_list_clients() do
+    query = (from e in Client, [select: %{id: e.id, name: e.first_name}])
+    Repo.all(query)
+  end
 end

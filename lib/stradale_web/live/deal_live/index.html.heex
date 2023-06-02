@@ -1,0 +1,50 @@
+<.header>
+  Listing Deals
+  <:actions>
+    <.link patch={~p"/deals/new"}>
+      <.button>New Deal</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="deals"
+  rows={@streams.deals}
+>
+  <:col :let={{_id, deal}} label="Client name">
+    <%= Ecto.assoc_loaded?(deal.client) && deal.client.first_name <>" "<> deal.client.last_name || "" %>
+  </:col>
+  <:col :let={{_id, deal}} label="Deal status"><%= deal.deal_status %></:col>
+  <:col :let={{_id, deal}} label="Deal type"><%= deal.deal_type %></:col>
+  <:col :let={{_id, deal}} label="Vehicle type"><%= deal.vehicle_type %></:col>
+  <:col :let={{_id, deal}} label="Inventory type"><%= deal.inventory_type %></:col>
+  <:col :let={{_id, deal}} label="Sales person"><%= Ecto.assoc_loaded?(deal.sales_person) && deal.sales_person.first_name <>" "<> deal.sales_person.last_name || "" %></:col>
+  <:col :let={{_id, deal}} label="Sales manager"><%= Ecto.assoc_loaded?(deal.sales_manager) && deal.sales_manager.first_name <>" "<> deal.sales_manager.last_name || "" %></:col>
+  <:col :let={{_id, deal}} label="Finance manager"><%= Ecto.assoc_loaded?(deal.finance_manager) && deal.finance_manager.first_name <>" "<> deal.finance_manager.last_name || "" %></:col>
+  <:col :let={{_id, deal}} label="Approval status"><%= deal.approval_status %></:col>
+  <:action :let={{_id, deal}}>
+    <div class="sr-only">
+      <.link navigate={~p"/deals/#{deal}"}>Show</.link>
+    </div>
+    <.link patch={~p"/deals/#{deal}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, deal}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: deal.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="deal-modal" show on_cancel={JS.patch(~p"/deals")}>
+  <.live_component
+    module={StradaleWeb.DealLive.FormComponent}
+    id={@deal.id || :new}
+    title={@page_title}
+    action={@live_action}
+    deal={@deal}
+    patch={~p"/deals"}
+  />
+</.modal>

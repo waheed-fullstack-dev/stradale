@@ -86,6 +86,10 @@ defmodule StradaleWeb.Router do
 
       live "/garages/:id", GarageLive.Show, :show
       live "/garages/:id/show/edit", GarageLive.Show, :edit
+
+      live "/deals", DealLive.Index, :index
+      live "/deals/new", DealLive.Index, :new
+      live "/deals/:id/edit", DealLive.Index, :edit
     end
   end
 
