@@ -9,6 +9,7 @@ defmodule Stradale.Accounts.User do
     last_name
     email
     password
+    user_role
   |a
 
   @optional_fields ~w|
@@ -24,6 +25,7 @@ defmodule Stradale.Accounts.User do
     field :first_name, :string
     field :last_name, :string
     field :email, :string
+    field :user_role, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime

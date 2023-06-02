@@ -36,6 +36,8 @@ defmodule StradaleWeb.UserRegistrationLive do
         <.input field={@form[:email]} type="email" label="Email" required />
         <.input field={@form[:password]} type="password" label="Password" required />
 
+        <.input field={@form[:user_role]} type="select" label="Select role" options={["staff", "sales_person", "sales_manager", "finance_mananger"]} required />
+
         <:actions>
           <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
         </:actions>
