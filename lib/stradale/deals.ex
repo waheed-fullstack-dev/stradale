@@ -115,7 +115,6 @@ defmodule Stradale.Deals do
     Deal
     |> Repo.all()
     |> Repo.preload([:client,:sales_person,:sales_manager,:finance_manager, :garage])
-    |> IO.inspect()
   end
 
   @doc """

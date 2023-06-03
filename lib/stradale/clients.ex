@@ -108,7 +108,7 @@ defmodule Stradale.Clients do
       [%{id: id, name: name}, ...]
   """
   def dropdown_list_clients() do
-    query = (from e in Client, [select: %{id: e.id, name: e.first_name}])
+    query = (from e in Client, [select: %{id: e.id, first_name: e.first_name, last_name: e.last_name}])
     Repo.all(query)
   end
 end

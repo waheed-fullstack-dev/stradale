@@ -25,7 +25,7 @@ defmodule StradaleWeb.DealLive.FormComponent do
               field={@form[:client_id]}
               type="select"
               label="Choose Client"
-              options={Enum.map(@clients, &{&1.name, &1.id})}
+              options={Enum.map(@clients, &{&1.first_name <> " " <> &1.last_name, &1.id})}
             />
           </div>
           <div class="col">
@@ -82,7 +82,7 @@ defmodule StradaleWeb.DealLive.FormComponent do
               field={@form[:sales_person_id]}
               type="select"
               label="Choose Sales Person"
-              options={Enum.map(@sales_person, &{&1.name, &1.id});}
+              options={Enum.map(@sales_person, &{&1.first_name <> " " <> &1.last_name, &1.id});}
             />
           </div>
           <div class="col">
@@ -90,7 +90,7 @@ defmodule StradaleWeb.DealLive.FormComponent do
               field={@form[:sales_manager_id]}
               type="select"
               label="Choose Sales Manager"
-              options={Enum.map(@sales_manager, &{&1.name, &1.id})}
+              options={Enum.map(@sales_manager, &{&1.first_name <> " " <> &1.last_name, &1.id})}
             />
           </div>
         </div>
@@ -109,7 +109,7 @@ defmodule StradaleWeb.DealLive.FormComponent do
               field={@form[:finance_manager_id]}
               type="select"
               label="Choose Finance Manager"
-              options={Enum.map(@finance_manager, &{&1.name, &1.id})}
+              options={Enum.map(@finance_manager, &{&1.first_name <> " " <> &1.last_name, &1.id})}
             />
           </div>
         </div>

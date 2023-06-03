@@ -382,7 +382,7 @@ defmodule Stradale.Accounts do
       [%{id: id, name: name}, ...]
   """
   def dropdown_list_users(role) do
-    query = (from u in User, [where: u.user_role == ^role ,select: %{id: u.id, name: u.first_name}])
+    query = (from u in User, [where: u.user_role == ^role ,select: %{id: u.id, first_name: u.first_name, last_name: u.last_name}])
     Repo.all(query)
   end
 end
