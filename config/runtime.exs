@@ -31,7 +31,7 @@ if config_env() == :prod do
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
   config :stradale, Stradale.Repo,
-    # ssl: true,
+    ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
@@ -48,7 +48,7 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
+  host = System.get_env("PHX_HOST") || "stradale.herokuapp.com/"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :stradale, StradaleWeb.Endpoint,
