@@ -114,7 +114,8 @@ defmodule Stradale.Deals do
   def list_Deals_with_associated_persons do
     Deal
     |> Repo.all()
-    |> Repo.preload([:client,:sales_person,:sales_manager,:finance_manager])
+    |> Repo.preload([:client,:sales_person,:sales_manager,:finance_manager, :garage])
+    |> IO.inspect()
   end
 
   @doc """
@@ -131,5 +132,5 @@ defmodule Stradale.Deals do
       ** (Ecto.NoResultsError)
 
   """
-  def get_deal_with_preload!(id), do: Repo.get!(Deal, id) |> Repo.preload([:client,:sales_person,:sales_manager,:finance_manager])
+  def get_deal_with_preload!(id), do: Repo.get!(Deal, id) |> Repo.preload([:client,:sales_person,:sales_manager,:finance_manager, :garage])
 end

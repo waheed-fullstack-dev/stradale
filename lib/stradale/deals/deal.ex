@@ -11,6 +11,7 @@ defmodule Stradale.Deals.Deal do
     finance_manager_id
     sales_person_id
     sales_manager_id
+    garage_id
   |a
 
   @optional_fields ~w|
@@ -19,7 +20,6 @@ defmodule Stradale.Deals.Deal do
     approval_status
     vehicle_type
     deal_status
-    inventory_type
   |a
 
 
@@ -28,7 +28,6 @@ defmodule Stradale.Deals.Deal do
   schema "deals" do
     field :deal_status, :string
     field :deal_type, :string
-    field :inventory_type, :string
     field :vehicle_type, :string
     field :approval_status, :string
     field :notes, :string
@@ -37,6 +36,7 @@ defmodule Stradale.Deals.Deal do
     belongs_to :sales_person, Stradale.Accounts.User
     belongs_to :sales_manager, Stradale.Accounts.User
     belongs_to :finance_manager, Stradale.Accounts.User
+    belongs_to :garage, Stradale.Garages.Garage
 
     timestamps()
   end
