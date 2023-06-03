@@ -7,7 +7,6 @@ defmodule Stradale.Repo.Migrations.CreateDeals do
       add :deal_status, :string
       add :deal_type, :string
       add :vehicle_type, :string
-      add :inventory_type, :string
       add :approval_status, :string, default: "Pending"
       add :notes, :string
       add :sales_person_id, references(:users, type: :binary_id, on_delete: :nothing), null: false
@@ -16,6 +15,7 @@ defmodule Stradale.Repo.Migrations.CreateDeals do
       add :sales_manager_id, references(:users, type: :binary_id, on_delete: :nothing),
         null: false
       add :client_id, references(:clients, type: :binary_id, on_delete: :delete_all), null: false
+      add :garage_id, references(:garages, type: :binary_id, on_delete: :delete_all), null: false
       timestamps()
     end
   end

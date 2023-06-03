@@ -17,7 +17,7 @@
   <:col :let={{_id, deal}} label="Deal status"><%= deal.deal_status %></:col>
   <:col :let={{_id, deal}} label="Deal type"><%= deal.deal_type %></:col>
   <:col :let={{_id, deal}} label="Vehicle type"><%= deal.vehicle_type %></:col>
-  <:col :let={{_id, deal}} label="Inventory type"><%= deal.inventory_type %></:col>
+  <:col :let={{_id, deal}} label="Garage Serial-Plate Number"><%= Ecto.assoc_loaded?(deal.garage) && deal.garage.serial_number <>"-"<> deal.garage.plate_number || ""  %></:col>
   <:col :let={{_id, deal}} label="Sales person"><%= Ecto.assoc_loaded?(deal.sales_person) && deal.sales_person.first_name <>" "<> deal.sales_person.last_name || "" %></:col>
   <:col :let={{_id, deal}} label="Sales manager"><%= Ecto.assoc_loaded?(deal.sales_manager) && deal.sales_manager.first_name <>" "<> deal.sales_manager.last_name || "" %></:col>
   <:col :let={{_id, deal}} label="Finance manager"><%= Ecto.assoc_loaded?(deal.finance_manager) && deal.finance_manager.first_name <>" "<> deal.finance_manager.last_name || "" %></:col>

@@ -1,7 +1,7 @@
 defmodule StradaleWeb.DealLive.FormComponent do
   use StradaleWeb, :live_component
 
-  alias Stradale.{Deals, Clients, Accounts}
+  alias Stradale.{Deals, Clients, Accounts, Garages}
 
   @impl true
   def render(assigns) do
@@ -30,10 +30,10 @@ defmodule StradaleWeb.DealLive.FormComponent do
           </div>
           <div class="col">
             <.input
-              field={@form[:deal_status]}
+              field={@form[:garage_id]}
               type="select"
-              label="Choose Deal Status"
-              options={["Delivered", "Sold", "Canceled"]}
+              label="Garage Serial-Plate Number"
+              options={Enum.map(@garage, &{&1.serial_number <>"-"<> &1.plate_number, &1.id})}
             />
           </div>
         </div>
@@ -96,7 +96,15 @@ defmodule StradaleWeb.DealLive.FormComponent do
         </div>
 
       <div class="row g-3">
-          <div class="col-6">
+        <div class="col">
+            <.input
+              field={@form[:deal_status]}
+              type="select"
+              label="Choose Deal Status"
+              options={["Delivered", "Sold", "Canceled"]}
+            />
+          </div>
+          <div class="col">
             <.input
               field={@form[:finance_manager_id]}
               type="select"
@@ -126,6 +134,7 @@ defmodule StradaleWeb.DealLive.FormComponent do
     sales_person = Accounts.dropdown_list_users("sales_person")
     sales_manager = Accounts.dropdown_list_users("sales_manager")
     finance_manager = Accounts.dropdown_list_users("finance_manager")
+    garage = Garages.dropdown_list_garages()
     {:ok,
      socket
      |> assign(assigns)
@@ -134,6 +143,7 @@ defmodule StradaleWeb.DealLive.FormComponent do
      |> assign(:sales_person, sales_person)
      |> assign(:sales_manager, sales_manager)
      |> assign(:finance_manager, finance_manager)
+     |> assign(:garage, garage)
     }
   end
 

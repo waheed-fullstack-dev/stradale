@@ -115,4 +115,15 @@ defmodule Stradale.Garages do
   def change_garage(%Garage{} = garage, attrs \\ %{}) do
     Garage.changeset(garage, attrs)
   end
+
+  @doc """
+  Returns the list of garages with serial and plate only.
+  ## Examples
+      iex> dropdown_list_garages()
+      [%{id: id, name: name}, ...]
+  """
+  def dropdown_list_garages() do
+    query = (from g in Garage, [select: %{id: g.id, serial_number: g.serial_number, plate_number: g.plate_number}])
+    Repo.all(query)
+  end
 end
