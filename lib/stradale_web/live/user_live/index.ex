@@ -18,11 +18,28 @@ defmodule StradaleWeb.UserLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
+  defp apply_action(socket, :new, _params) do
+    socket
+    |> assign(:page_title, "New Member")
+    |> assign(:user, %User{})
+  end
+
+  defp apply_action(socket, :edit, %{"id" => id}) do
+    socket
+    |> assign(:page_title, "Edit Member")
+    |> assign(:user, Accounts.get_user!(id))
+  end
+
 
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Members")
     |> assign(:user, nil)
+  end
+
+  @impl true
+  def handle_info({StradaleWeb.UserLive.FormComponent, {:saved, user}}, socket) do
+    {:noreply, stream_insert(socket, :users, user)}
   end
 
   @impl true

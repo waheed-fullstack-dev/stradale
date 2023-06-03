@@ -61,7 +61,8 @@ defmodule StradaleWeb.Router do
       on_mount: [{StradaleWeb.UserAuth, :ensure_authenticated}] do
 
       live "/users", UserLive.Index, :index
-      live "/users/register", UserRegistrationLive, :new
+      live "/users/:id/edit", UserLive.Index, :edit
+      live "/users/register", UserLive.Index, :new
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
 

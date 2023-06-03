@@ -16,6 +16,22 @@ defmodule Stradale.Accounts do
     Repo.delete(user)
   end
 
+  def change_user(%User{} = user, attrs \\ %{}) do
+    User.registration_changeset(user, attrs)
+  end
+
+  def create_user(attrs \\ %{}) do
+    %User{}
+    |> User.registration_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_user(%User{} = user, attrs) do
+    user
+    |> User.registration_changeset(attrs)
+    |> Repo.update()
+  end
+
   ## Database getters
 
   @doc """
