@@ -45,25 +45,23 @@ defmodule StradaleWeb.GarageLive.FormComponent do
         <div class="col">
         <.input field={@form[:purchase_from_last_name]} type="text" label="Owner Last Name" />
         </div>
-      </div>
-
-      <div class="row g-3">
         <div class="col">
         <.input field={@form[:purchase_from_address]} type="text" label="Owner Address" />
         </div>
-        <div class="col">
-        <.input field={@form[:style]} type="text" label="Style" />
-        </div>
       </div>
 
       <div class="row g-3">
+        <div class="col">
+        <.input field={@form[:style]} type="text" label="Style" />
+        </div>
         <div class="col">
         <.input field={@form[:plate_number]} type="text" label="Plate number" />
         </div>
         <div class="col">
-        <.input field={@form[:odometer_reading]} type="text" label="Odometer Reading" />
+        <.input field={@form[:serial_number]} type="text" label="Serial number" />
         </div>
       </div>
+
       <div class="row g-3">
         <div class="col">
         <.input field={@form[:make]} type="text" label="Make" />
@@ -71,19 +69,16 @@ defmodule StradaleWeb.GarageLive.FormComponent do
         <div class="col">
         <.input field={@form[:year]} type="text" label="Year" />
         </div>
-      </div>
-
-
-      <div class="row g-3">
-        <div class="col">
-        <.input field={@form[:serial_number]} type="text" label="Serial number" />
-        </div>
         <div class="col">
         <.input field={@form[:color]} type="text" label="Color" />
         </div>
       </div>
 
+
       <div class="row g-3">
+      <div class="col">
+        <.input field={@form[:odometer_reading]} type="text" label="Odometer Reading" />
+        </div>
         <div class="col">
         <.input
           field={@form[:consignement]}
@@ -98,13 +93,44 @@ defmodule StradaleWeb.GarageLive.FormComponent do
       </div>
 
       <div class="row g-3">
+      <div class="col">
+        <.input field={@form[:transmission]} type="text" label="Transmission" />
+        </div>
         <div class="col">
+        <.input field={@form[:model]} type="text" label="Model" />
+        </div>
+        <div class="col">
+        <.input field={@form[:power_train]} type="text" label="Power Train" />
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <div class="col">
+        <.input field={@form[:exterior]} type="text" label="Exterior" />
+        </div>
+        <div class="col">
+        <.input field={@form[:interior]} type="text" label="Interior" />
+        </div>
+        <div class="col">
+        <.input field={@form[:mileage]} type="text" label="Mileage" />
+        </div>
+      </div>
+
+      <div class="row g-3">
+      <div class="col">
         <.input
           field={@form[:date_into_stock]}
           type="datetime-local"
           label="Date into Stock"
         />
         </div>
+        <div class="col">
+        <.input field={@form[:drive_train]} type="text" label="Drive Train" />
+        </div>
+        <div class="col">
+        <.input field={@form[:price]} type="text" label="Price" />
+        </div>
+
       </div>
 
       <div class="row g-3">

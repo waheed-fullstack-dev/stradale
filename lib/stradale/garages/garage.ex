@@ -20,6 +20,16 @@ defmodule Stradale.Garages.Garage do
     purchase_from_last_name
     purchase_from_address
 
+    price
+    model
+    exterior
+    interior
+    mileage
+
+    transmission
+    power_train
+    drive_train
+
   |a
 
   @optional_fields ~w|
@@ -34,6 +44,7 @@ defmodule Stradale.Garages.Garage do
     notes
     added_by
   |a
+
 
   @all_fields @required_fields ++ @optional_fields
 
@@ -62,6 +73,19 @@ defmodule Stradale.Garages.Garage do
     field :consignement, :string
     field :permit, :string
     field :notes, :string
+
+    field :price, :string
+    field :status, :string
+    field :tax, :string
+    field :model, :string
+    field :exterior, :string
+    field :interior, :string
+    field :mileage, :string
+    field :power_train, :string
+    field :transmission, :string
+    field :drive_train, :string
+
+
     field :added_by, :binary_id
 
     timestamps()
