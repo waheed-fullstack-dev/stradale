@@ -38,8 +38,7 @@ if config_env() == :prod do
     ssl: true,
     prepare: :unnamed,
     timeout: 120_000,
-    pool_timeout: 120_000,
-    ownership_timeout: 120_000,
+    pool_timeout: 120_000
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
