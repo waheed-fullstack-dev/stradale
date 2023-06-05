@@ -31,10 +31,15 @@ if config_env() == :prod do
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
   config :stradale, Stradale.Repo,
-    ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6
+    adapter: Ecto.Adapters.Postgres,
+    migration_timestamps: [type: :utc_datetime],
+    ssl: true,
+    prepare: :unnamed,
+    timeout: 120_000,
+    pool_timeout: 120_000,
+    ownership_timeout: 120_000,
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -54,15 +59,13 @@ if config_env() == :prod do
   config :stradale, StradaleWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
     http: [
-      # Enable IPv6 and bind on all interfaces.
-      # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
-      # for details about using IPv6 vs IPv4 and loopback vs public addresses.
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
-    force_ssl: [rewrite_on: [:x_forwarded_proto]],
-    secret_key_base: secret_key_base
+    cache_static_manifest: "priv/static/cache_manifest.json",
+    force_ssl: [rewrite_on: [:x_forwarded_proto], hsts: true, host: nil],
+    secret_key_base: secret_key_base,
+    check_origin: false
 
   # ## SSL Support
   #
