@@ -47,6 +47,7 @@ defmodule StradaleWeb.Router do
     live_session :redirect_if_user_is_authenticated,
       on_mount: [{StradaleWeb.UserAuth, :redirect_if_user_is_authenticated}] do
       live "/users/log_in", UserLoginLive, :new
+      live "/users/signup", UserRegistrationLive, :new
       live "/users/reset_password", UserForgotPasswordLive, :new
       live "/users/reset_password/:token", UserResetPasswordLive, :edit
     end
