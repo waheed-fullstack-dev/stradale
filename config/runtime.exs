@@ -31,10 +31,15 @@ if config_env() == :prod do
   maybe_ipv6 = if System.get_env("ECTO_IPV6") in ~w(true 1), do: [:inet6], else: []
 
   config :stradale, Stradale.Repo,
-    ssl: true,
     url: database_url,
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6
+    adapter: Ecto.Adapters.Postgres,
+    migration_timestamps: [type: :utc_datetime],
+    ssl: true,
+    prepare: :unnamed,
+    timeout: 120_000,
+    pool_timeout: 120_000,
+    ownership_timeout: 120_000,
 
   # The secret key base is used to sign/encrypt cookies and other secrets.
   # A default value is used in config/dev.exs and config/test.exs but you
@@ -53,13 +58,15 @@ if config_env() == :prod do
 
   config :stradale, StradaleWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
-    ssl: true,
-    stacktrace: true,
-    ssl_opts: [verify: :verify_peer, cacertfile: 'ca-certificate.crt'],
-    show_sensitive_data_on_connection_error: true,
-    force_ssl: [rewrite_on: [:x_forwarded_proto]],
-    secret_key_base: secret_key_base
-W
+    http: [
+      ip: {0, 0, 0, 0, 0, 0, 0, 0},
+      port: port
+    ],
+    cache_static_manifest: "priv/static/cache_manifest.json",
+    force_ssl: [rewrite_on: [:x_forwarded_proto], hsts: true, host: nil],
+    secret_key_base: secret_key_base,
+    check_origin: false
+
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key
