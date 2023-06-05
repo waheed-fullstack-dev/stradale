@@ -61,7 +61,7 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
-    ssl: true,
+    ssl: false,
     stacktrace: true,
     show_sensitive_data_on_connection_error: true,
     ssl_opts: [verify: :verify_peer, cacertfile: 'ca-certificate.crt'],
