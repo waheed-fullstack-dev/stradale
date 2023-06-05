@@ -62,8 +62,12 @@ if config_env() == :prod do
       port: port
     ],
     force_ssl: [rewrite_on: [:x_forwarded_proto]],
+    ssl: true,
+    stacktrace: true,W
+    show_sensitive_data_on_connection_error: true,
+    ssl_opts: [verify: :verify_peer, cacertfile: 'ca-certificate.crt'],
     secret_key_base: secret_key_base
-
+W
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key
