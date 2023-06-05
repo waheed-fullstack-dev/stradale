@@ -55,6 +55,7 @@ if config_env() == :prod do
     url: [host: host, port: 443, scheme: "https"],
     ssl: true,
     stacktrace: true,
+    ssl_opts: [verify: :verify_peer, cacertfile: 'ca-certificate.crt'],
     show_sensitive_data_on_connection_error: true,
     force_ssl: [rewrite_on: [:x_forwarded_proto]],
     secret_key_base: secret_key_base
