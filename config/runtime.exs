@@ -53,10 +53,9 @@ if config_env() == :prod do
 
   config :stradale, StradaleWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
-    ssl: false,
+    ssl: true,
     stacktrace: true,
     show_sensitive_data_on_connection_error: true,
-    ssl_opts: [verify: :verify_peer, cacertfile: 'ca-certificate.crt'],
     force_ssl: [rewrite_on: [:x_forwarded_proto]],
     secret_key_base: secret_key_base
 W
