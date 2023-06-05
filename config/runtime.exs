@@ -63,7 +63,7 @@ if config_env() == :prod do
     ],
     force_ssl: [rewrite_on: [:x_forwarded_proto]],
     ssl: true,
-    stacktrace: true,W
+    stacktrace: true,
     show_sensitive_data_on_connection_error: true,
     ssl_opts: [verify: :verify_peer, cacertfile: 'ca-certificate.crt'],
     secret_key_base: secret_key_base
