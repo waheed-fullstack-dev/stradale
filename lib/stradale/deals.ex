@@ -21,6 +21,17 @@ defmodule Stradale.Deals do
     Repo.all(Deal)
   end
 
+  @spec list_custom_deals(any, any) :: any
+  def list_custom_deals(role, user_id) do
+    query =
+      case role do
+        "finance_manager" -> (from u in Deal, where: u.finance_manager_id == ^user_id)
+        "sales_person" -> (from u in Deal, where: u.sales_person_id == ^user_id)
+        _ -> Deal
+      end
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single Deal.
 
@@ -111,9 +122,14 @@ defmodule Stradale.Deals do
       [%Deal{}, ...]
 
   """
-  def list_Deals_with_associated_persons do
-    Deal
-    |> Repo.all()
+  def list_deals_with_associated_persons(role, user_id) do
+    query =
+      case role do
+        "finance_manager" -> (from u in Deal, where: u.finance_manager_id == ^user_id)
+        "sales_person" -> (from u in Deal, where: u.sales_person_id == ^user_id)
+        _ -> Deal
+      end
+    Repo.all(query)
     |> Repo.preload([:client,:sales_person,:sales_manager,:finance_manager, :garage])
   end
 

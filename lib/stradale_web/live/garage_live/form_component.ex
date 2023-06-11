@@ -19,7 +19,17 @@ defmodule StradaleWeb.GarageLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-      <div class="row g-3">
+      <div class="row">
+        <h5>General Information</h5>
+      </div>
+      <div class="row">
+        <div class="col">
+          <.input
+            field={@form[:date_into_stock]}
+            type="datetime-local"
+            label="Date into Stock"
+          />
+        </div>
         <div class="col">
         <.input
           field={@form[:intake_type]}
@@ -36,9 +46,23 @@ defmodule StradaleWeb.GarageLive.FormComponent do
           options={["New", "New: Demo", "Pre-Owned", "Pre-Owned: CPO", "Pre-Owned:AS-IS"]}
         />
         </div>
+        <div class="col">
+        <.input
+          field={@form[:consignement]}
+          type="select"
+          label="Choose Consignement"
+          options={["No", "Yes"]}
+        />
+        </div>
+        <div class="col">
+        <.input field={@form[:price]} type="text" label="Price" />
+        </div>
       </div>
 
-      <div class="row g-3">
+      <div class="row">
+        <h5>Purchased From</h5>
+      </div>
+      <div class="row">
         <div class="col">
         <.input field={@form[:purchase_from_first_name]} type="text" label="Owner First Name" />
         </div>
@@ -50,19 +74,14 @@ defmodule StradaleWeb.GarageLive.FormComponent do
         </div>
       </div>
 
-      <div class="row g-3">
+      <div class="row">
+        <h5>Vehicle</h5>
+      </div>
+
+      <div class="row">
         <div class="col">
         <.input field={@form[:style]} type="text" label="Style" />
         </div>
-        <div class="col">
-        <.input field={@form[:plate_number]} type="text" label="Plate number" />
-        </div>
-        <div class="col">
-        <.input field={@form[:serial_number]} type="text" label="Serial number" />
-        </div>
-      </div>
-
-      <div class="row g-3">
         <div class="col">
         <.input field={@form[:make]} type="text" label="Make" />
         </div>
@@ -72,39 +91,34 @@ defmodule StradaleWeb.GarageLive.FormComponent do
         <div class="col">
         <.input field={@form[:color]} type="text" label="Color" />
         </div>
+        <div class="col">
+        <.input field={@form[:model]} type="text" label="Model" />
+        </div>
       </div>
 
-
-      <div class="row g-3">
+      <div class="row ">
       <div class="col">
+        <.input field={@form[:plate_number]} type="text" label="Plate number" />
+        </div>
+        <div class="col">
+        <.input field={@form[:serial_number]} type="text" label="Serial number" />
+        </div>
+        <div class="col">
         <.input field={@form[:odometer_reading]} type="text" label="Odometer Reading" />
         </div>
         <div class="col">
-        <.input
-          field={@form[:consignement]}
-          type="select"
-          label="Choose Consignement"
-          options={["Yes", "No"]}
-        />
+        <.input field={@form[:drive_train]} type="text" label="Drive Train" />
         </div>
         <div class="col">
         <.input field={@form[:permit]} type="text" label="Permit" />
         </div>
       </div>
 
-      <div class="row g-3">
-      <div class="col">
+
+      <div class="row ">
+        <div class="col">
         <.input field={@form[:transmission]} type="text" label="Transmission" />
         </div>
-        <div class="col">
-        <.input field={@form[:model]} type="text" label="Model" />
-        </div>
-        <div class="col">
-        <.input field={@form[:power_train]} type="text" label="Power Train" />
-        </div>
-      </div>
-
-      <div class="row g-3">
         <div class="col">
         <.input field={@form[:exterior]} type="text" label="Exterior" />
         </div>
@@ -114,26 +128,36 @@ defmodule StradaleWeb.GarageLive.FormComponent do
         <div class="col">
         <.input field={@form[:mileage]} type="text" label="Mileage" />
         </div>
-      </div>
-
-      <div class="row g-3">
-      <div class="col">
-        <.input
-          field={@form[:date_into_stock]}
-          type="datetime-local"
-          label="Date into Stock"
-        />
-        </div>
         <div class="col">
-        <.input field={@form[:drive_train]} type="text" label="Drive Train" />
-        </div>
-        <div class="col">
-        <.input field={@form[:price]} type="text" label="Price" />
+        <.input field={@form[:power_train]} type="text" label="Power Train" />
         </div>
 
       </div>
 
-      <div class="row g-3">
+      <div class="row ">
+        <h5>Sold To</h5>
+      </div>
+
+      <div class="row ">
+        <div class="col">
+        <.input field={@form[:sale_to_first_name]} type="text" label="First Name" />
+        </div>
+        <div class="col">
+        <.input field={@form[:sale_to_last_name]} type="text" label="Last Name" />
+        </div>
+        <div class="col">
+        <.input field={@form[:sale_to_address]} type="text" label="Address" />
+        </div>
+        <div class="col">
+          <.input
+            field={@form[:date_out_stock]}
+            type="datetime-local"
+            label="Date out Stock"
+          />
+        </div>
+      </div>
+
+      <div class="row ">
         <div class="col">
         <.input field={@form[:notes]} type="textarea" label="Notes" />
         </div>
@@ -173,8 +197,7 @@ defmodule StradaleWeb.GarageLive.FormComponent do
 
   defp save_garage(socket, :edit, garage_params) do
     case Garages.update_garage(socket.assigns.garage, garage_params) do
-      {:ok, garage} ->
-        notify_parent({:saved, garage})
+      {:ok, garage} -> notify_parent({:saved, garage})
 
         {:noreply,
          socket

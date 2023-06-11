@@ -15,6 +15,8 @@ defmodule Stradale.Clients.Client do
     street_address
     province
     postal_code
+    sales_person_id
+    finance_manager_id
 
   |a
 
@@ -39,6 +41,8 @@ defmodule Stradale.Clients.Client do
     field :postal_code, :string
     field :province, :string
     field :street_address, :string
+    belongs_to :sales_person, Stradale.Accounts.User
+    belongs_to :finance_manager, Stradale.Accounts.User
 
     timestamps()
   end
@@ -47,6 +51,8 @@ defmodule Stradale.Clients.Client do
   def changeset(client, attrs) do
     client
     |> cast(attrs, @all_fields)
+    |> Ecto.Changeset.cast_assoc(:sales_person)
+    |> Ecto.Changeset.cast_assoc(:finance_manager)
     |> validate_required(@required_fields)
   end
 end

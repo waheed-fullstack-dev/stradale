@@ -1,7 +1,7 @@
 defmodule StradaleWeb.ClientLive.FormComponent do
   use StradaleWeb, :live_component
 
-  alias Stradale.Clients
+  alias Stradale.{Clients, Accounts}
 
   @impl true
   def render(assigns) do
@@ -68,6 +68,25 @@ defmodule StradaleWeb.ClientLive.FormComponent do
         </div>
       </div>
 
+      <div class="row g-3">
+        <div class="col">
+          <.input
+            field={@form[:sales_person_id]}
+            type="select"
+            label="Choose Sales Person"
+            options={Enum.map(@sales_person, &{&1.first_name <> " " <> &1.last_name, &1.id});}
+          />
+        </div>
+        <div class="col">
+          <.input
+            field={@form[:finance_manager_id]}
+            type="select"
+            label="Choose Finance Manager"
+            options={Enum.map(@finance_manager, &{&1.first_name <> " " <> &1.last_name, &1.id})}
+          />
+        </div>
+      </div>
+
         <:actions>
           <.button phx-disable-with="Saving...">Save Client</.button>
         </:actions>
@@ -79,11 +98,15 @@ defmodule StradaleWeb.ClientLive.FormComponent do
   @impl true
   def update(%{client: client} = assigns, socket) do
     changeset = Clients.change_client(client)
+    sales_person = Accounts.dropdown_list_users("sales_person")
+    finance_manager = Accounts.dropdown_list_users("finance_manager")
 
     {:ok,
      socket
      |> assign(assigns)
-     |> assign_form(changeset)}
+     |> assign_form(changeset)
+     |> assign(:sales_person, sales_person)
+     |> assign(:finance_manager, finance_manager)}
   end
 
   @impl true

@@ -21,6 +21,16 @@ defmodule Stradale.Clients do
     Repo.all(Client)
   end
 
+  def list_clients_with_associated_persons(role, user_id) do
+    query =
+      case role do
+        "finance_manager" -> (from u in Client, where: u.finance_manager_id == ^user_id)
+        "sales_person" -> (from u in Client, where: u.sales_person_id == ^user_id)
+        _ -> Client
+      end
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single client.
 

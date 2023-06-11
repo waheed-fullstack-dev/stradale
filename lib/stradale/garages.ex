@@ -123,7 +123,9 @@ defmodule Stradale.Garages do
       [%{id: id, name: name}, ...]
   """
   def dropdown_list_garages() do
-    query = (from g in Garage, [select: %{id: g.id, serial_number: g.serial_number, plate_number: g.plate_number}])
+    query = (from g in Garage,
+      where: g.intake_type != "Fleet"
+    )
     Repo.all(query)
   end
 end

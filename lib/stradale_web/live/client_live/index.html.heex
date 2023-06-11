@@ -27,15 +27,19 @@
     <div class="sr-only">
       <.link navigate={~p"/clients/#{client}"}>Show</.link>
     </div>
+    <%= if @current_user.user_role === "admin" or @current_user.user_role === "sales_manager" do %>
     <.link patch={~p"/clients/#{client}/edit"}>Edit</.link>
+    <% end %>
   </:action>
   <:action :let={{id, client}}>
+    <%= if @current_user.user_role === "admin" or @current_user.user_role === "sales_manager" do %>
     <.link
       phx-click={JS.push("delete", value: %{id: client.id}) |> hide("##{id}")}
       data-confirm="Are you sure?"
     >
       Delete
     </.link>
+    <% end %>
   </:action>
 </.table>
 

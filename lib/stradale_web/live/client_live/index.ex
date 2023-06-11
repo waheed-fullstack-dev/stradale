@@ -6,7 +6,7 @@ defmodule StradaleWeb.ClientLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :clients, Clients.list_clients())}
+    {:ok, stream(socket, :clients, Clients.list_clients_with_associated_persons(socket.assigns.current_user.user_role, socket.assigns.current_user.id))}
   end
 
   @impl true

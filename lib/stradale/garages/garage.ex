@@ -8,7 +8,6 @@ defmodule Stradale.Garages.Garage do
   @required_fields ~w|
     intake_type
     inventory_type
-    plate_number
     odometer_reading
     serial_number
     color
@@ -17,7 +16,6 @@ defmodule Stradale.Garages.Garage do
     make
     style
     purchase_from_first_name
-    purchase_from_last_name
     purchase_from_address
 
     price
@@ -37,6 +35,7 @@ defmodule Stradale.Garages.Garage do
     plate_number
     date_out_stock
     consignement
+    purchase_from_last_name
     sale_to_first_name
     sale_to_last_name
     sale_to_address
