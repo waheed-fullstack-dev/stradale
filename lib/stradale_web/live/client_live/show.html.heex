@@ -2,9 +2,11 @@
   Client <%= @client.id %>
   <:subtitle>This is a client record from your database.</:subtitle>
   <:actions>
+    <%= if @current_user.user_role === "admin" or @current_user.user_role === "sales_manager" do %>
     <.link patch={~p"/clients/#{@client}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit client</.button>
     </.link>
+    <% end %>
   </:actions>
 </.header>
 

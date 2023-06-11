@@ -6,7 +6,7 @@ defmodule StradaleWeb.DealLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :deals, Deals.list_Deals_with_associated_persons())}
+    {:ok, stream(socket, :deals, Deals.list_deals_with_associated_persons(socket.assigns.current_user.user_role, socket.assigns.current_user.id))}
   end
 
   @impl true
@@ -44,5 +44,27 @@ defmodule StradaleWeb.DealLive.Index do
     {:ok, _} = Deals.delete_deal(deal)
 
     {:noreply, stream_delete(socket, :deals, deal)}
+  end
+
+  @impl true
+  def handle_event("accept", %{"id" => id}, socket) do
+    deal = Deals.get_deal!(id)
+    {:ok, _deal} = Deals.update_deal(deal, %{approval_status: "Approved"})
+    deal = Deals.get_deal_with_preload!(id)
+    socket = socket
+      |> stream_delete(:deals, deal)
+      |> stream_insert(:deals, deal, at: -1)
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("reject", %{"id" => id}, socket) do
+    deal = Deals.get_deal!(id)
+    {:ok, _deal} = Deals.update_deal(deal, %{approval_status: "Declined"})
+    deal = Deals.get_deal_with_preload!(id)
+    socket = socket
+      |> stream_delete(:deals, deal)
+      |> stream_insert(:deals, deal, at: -1)
+    {:noreply, socket}
   end
 end

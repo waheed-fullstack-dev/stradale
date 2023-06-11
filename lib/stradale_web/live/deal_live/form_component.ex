@@ -32,8 +32,8 @@ defmodule StradaleWeb.DealLive.FormComponent do
             <.input
               field={@form[:garage_id]}
               type="select"
-              label="Garage Serial-Plate Number"
-              options={Enum.map(@garage, &{&1.serial_number <>"-"<> &1.plate_number, &1.id})}
+              label="Garage Serial Number"
+              options={Enum.map(@garage, &{&1.serial_number, &1.id})}
             />
           </div>
         </div>
