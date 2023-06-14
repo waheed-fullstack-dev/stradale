@@ -48,7 +48,7 @@
       phx-click={JS.push("accept", value: %{id: deal.id}) |> hide("##{id}")}
       data-confirm="Are you sure?"
     >
-      Accept
+      Approved
     </.link>
     <% end %>
   </:action>
@@ -59,7 +59,7 @@
       phx-click={JS.push("reject", value: %{id: deal.id}) |> hide("##{id}")}
       data-confirm="Are you sure?"
     >
-      Reject
+      Declined
     </.link>
     <% end %>
   </:action>
