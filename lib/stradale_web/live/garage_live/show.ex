@@ -13,7 +13,7 @@ defmodule StradaleWeb.GarageLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:garage, Garages.get_garage!(id))}
+     |> assign(:garage, Garages.get_garage!(id) |> IO.inspect())}
   end
 
   defp page_title(:show), do: "Show Garage"

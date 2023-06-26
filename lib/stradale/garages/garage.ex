@@ -32,6 +32,7 @@ defmodule Stradale.Garages.Garage do
     notes
     added_by
     sold_to_id
+    date_out_stock
   |a
 
 
@@ -47,6 +48,7 @@ defmodule Stradale.Garages.Garage do
     field :make, :string
 
     field :date_into_stock, :naive_datetime
+    field :date_out_stock, :naive_datetime
     field :serial_number, :string
     field :consignement, :string
     field :permit, :string

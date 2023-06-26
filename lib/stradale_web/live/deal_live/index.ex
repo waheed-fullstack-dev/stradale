@@ -63,7 +63,7 @@ defmodule StradaleWeb.DealLive.Index do
     deal = Deals.get_deal!(id)
     garage = Garages.get_garage!(deal.garage_id)
     {:ok, _garage} = Garages.update_garage(garage, %{sold_to_id: deal.client_id, date_out_stock: :calendar.universal_time()})
-    {:ok, _deal} = Deals.update_deal(deal, %{approval_status: "Approved"})
+    {:ok, _deal} = Deals.update_deal(deal, %{approval_status: "Delivered"})
     deal = Deals.get_deal_with_preload!(id)
     socket = socket
       |> stream_delete(:deals, deal)

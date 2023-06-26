@@ -127,7 +127,7 @@ defmodule StradaleWeb.GarageLive.FormComponent do
         </div>
 
         <div class="col">
-        <.input field={@form[:permit]} type="text" label="Permit" />
+        <.input field={@form[:permit]} type="text" label="Permit Number" />
         </div>
       </div>
 

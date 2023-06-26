@@ -16,13 +16,10 @@
     <:item title="serial_number"><%= @garage.serial_number %></:item>
     <:item title="consignement"><%= @garage.consignement %></:item>
     <:item title="year"><%= @garage.year %></:item>
-    <:item title="color"><%= @garage.color %></:item>
     <:item title="odometer_reading"><%= @garage.odometer_reading %></:item>
     <:item title="plate_number"><%= @garage.plate_number %></:item>
 
-    <:item title="style"><%= @garage.style %></:item>
     <:item title="make"><%= @garage.make %></:item>
-    <:item title="price"><%= @garage.price %></:item>
     <:item title="model"><%= @garage.model %></:item>
 
     <:item title="exterior"><%= @garage.exterior %></:item>
@@ -37,10 +34,10 @@
 <div class="row">
   <h2 class="py-5">Purchased From</h2>
   <.list>
-    <:item title="Frist Name"><%= @garage.purchase_from_first_name %></:item>
-    <:item title="Last Name"><%= @garage.purchase_from_last_name %></:item>
-    <:item title="Complete Name"><%= @garage.purchase_from_first_name %> <%= @garage.purchase_from_last_name %></:item>
-    <:item title="Address"><%= @garage.purchase_from_address %> </:item>
+    <:item title="Frist Name"><%= @garage.purchased_from.first_name %></:item>
+    <:item title="Last Name"><%= @garage.purchased_from.last_name %></:item>
+    <:item title="Complete Name"><%= @garage.purchased_from.first_name %> <%= @garage.purchased_from.last_name %></:item>
+    <:item title="Address"><%= @garage.purchased_from.street_address %> </:item>
     <:item title="date_into_stock"><%= @garage.date_into_stock %></:item>
   </.list>
 </div>
@@ -48,11 +45,11 @@
 <div class="row">
   <h2 class="py-5">Date out Stock</h2>
   <.list>
-    <:item title="Frist Name"><%= @garage.sale_to_first_name %></:item>
-    <:item title="Last Name"><%= @garage.sale_to_last_name %></:item>
-    <:item title="Complete Name"><%= @garage.sale_to_first_name %> <%= @garage.sale_to_last_name %></:item>
-    <:item title="Address"><%= @garage.sale_to_address %> </:item>
-    <:item title="Date out Stock"><%= @garage.date_out_stock %></:item>
+    <:item title="Frist Name"><%= @garage.sold_to.first_name %></:item>
+    <:item title="Last Name"><%= @garage.sold_to.last_name %></:item>
+    <:item title="Complete Name"><%= @garage.sold_to.first_name %> <%= @garage.sold_to.last_name %></:item>
+    <:item title="Address"><%= @garage.sold_to.street_address %> </:item>
+    <:item title="Date out of Stock"><%= @garage.date_out_stock %></:item>
   </.list>
 </div>
 

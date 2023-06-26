@@ -49,7 +49,7 @@ defmodule Stradale.Garages do
       ** (Ecto.NoResultsError)
 
   """
-  def get_garage!(id), do: Repo.get!(Garage, id)
+  def get_garage!(id), do: Repo.get!(Garage, id) |> Repo.preload([:purchased_from, :sold_to])
 
   @doc """
   Creates a garage.
