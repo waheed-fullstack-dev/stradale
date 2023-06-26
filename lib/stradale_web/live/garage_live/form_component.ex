@@ -1,7 +1,7 @@
 defmodule StradaleWeb.GarageLive.FormComponent do
   use StradaleWeb, :live_component
 
-  alias Stradale.Garages
+  alias Stradale.{Garages, Clients}
 
   @impl true
   def render(assigns) do
@@ -54,9 +54,6 @@ defmodule StradaleWeb.GarageLive.FormComponent do
           options={["No", "Yes"]}
         />
         </div>
-        <div class="col">
-        <.input field={@form[:price]} type="text" label="Price" />
-        </div>
       </div>
 
       <div class="row">
@@ -64,13 +61,16 @@ defmodule StradaleWeb.GarageLive.FormComponent do
       </div>
       <div class="row">
         <div class="col">
-        <.input field={@form[:purchase_from_first_name]} type="text" label="Owner First Name" />
+          <.input
+              field={@form[:purchased_from_id]}
+              type="select"
+              label="Select Purchased From"
+              options={Enum.map(@clients, &{&1.first_name <> " " <> &1.last_name, &1.id})}
+            />
         </div>
+
         <div class="col">
-        <.input field={@form[:purchase_from_last_name]} type="text" label="Owner Last Name" />
-        </div>
-        <div class="col">
-        <.input field={@form[:purchase_from_address]} type="text" label="Owner Address" />
+        <.input field={@form[:plate_number]} type="text" label="Plate number" />
         </div>
       </div>
 
@@ -79,81 +79,55 @@ defmodule StradaleWeb.GarageLive.FormComponent do
       </div>
 
       <div class="row">
-        <div class="col">
-        <.input field={@form[:style]} type="text" label="Style" />
+      <div class="col">
+        <.input field={@form[:serial_number]} type="text" label="Serial number" />
         </div>
+
+        <div class="col">
+        <.input field={@form[:year]} type="number" min="1899" max="2200" label="Year" />
+        </div>
+
         <div class="col">
         <.input field={@form[:make]} type="text" label="Make" />
         </div>
-        <div class="col">
-        <.input field={@form[:year]} type="text" label="Year" />
-        </div>
-        <div class="col">
-        <.input field={@form[:color]} type="text" label="Color" />
-        </div>
+
         <div class="col">
         <.input field={@form[:model]} type="text" label="Model" />
         </div>
       </div>
 
       <div class="row ">
+
       <div class="col">
-        <.input field={@form[:plate_number]} type="text" label="Plate number" />
-        </div>
-        <div class="col">
-        <.input field={@form[:serial_number]} type="text" label="Serial number" />
-        </div>
-        <div class="col">
-        <.input field={@form[:odometer_reading]} type="text" label="Odometer Reading" />
-        </div>
-        <div class="col">
-        <.input field={@form[:drive_train]} type="text" label="Drive Train" />
-        </div>
-        <div class="col">
-        <.input field={@form[:permit]} type="text" label="Permit" />
-        </div>
-      </div>
-
-
-      <div class="row ">
-        <div class="col">
-        <.input field={@form[:transmission]} type="text" label="Transmission" />
-        </div>
-        <div class="col">
         <.input field={@form[:exterior]} type="text" label="Exterior" />
         </div>
+
         <div class="col">
         <.input field={@form[:interior]} type="text" label="Interior" />
         </div>
-        <div class="col">
-        <.input field={@form[:mileage]} type="text" label="Mileage" />
-        </div>
-        <div class="col">
-        <.input field={@form[:power_train]} type="text" label="Power Train" />
-        </div>
-
-      </div>
-
-      <div class="row ">
-        <h5>Sold To</h5>
       </div>
 
       <div class="row ">
         <div class="col">
-        <.input field={@form[:sale_to_first_name]} type="text" label="First Name" />
-        </div>
+          <.input field={@form[:power_train]} type="text" label="Power Train" />
+          </div>
         <div class="col">
-        <.input field={@form[:sale_to_last_name]} type="text" label="Last Name" />
+        <.input field={@form[:drive_train]} type="text" label="Drive Train" />
         </div>
+
         <div class="col">
-        <.input field={@form[:sale_to_address]} type="text" label="Address" />
+        <.input field={@form[:transmission]} type="text" label="Transmission" />
         </div>
+      </div>
+
+      <div class="row">
+
         <div class="col">
-          <.input
-            field={@form[:date_out_stock]}
-            type="datetime-local"
-            label="Date out Stock"
-          />
+        <.input field={@form[:odometer_reading]} type="number" min="0" label="Odometer Reading" />
+        </div>
+
+        <div class="col">
+        <.input field={@form[:permit]} type="text" label="Permit" />
         </div>
       </div>
 
@@ -174,10 +148,12 @@ defmodule StradaleWeb.GarageLive.FormComponent do
   @impl true
   def update(%{garage: garage} = assigns, socket) do
     changeset = Garages.change_garage(garage)
+    clients = Clients.dropdown_list_clients()
 
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:clients, clients)
      |> assign_form(changeset)}
   end
 

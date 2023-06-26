@@ -10,20 +10,14 @@ defmodule Stradale.Garages.Garage do
     inventory_type
     odometer_reading
     serial_number
-    color
     date_into_stock
     year
     make
-    style
-    purchase_from_first_name
-    purchase_from_address
 
-    price
     model
     exterior
     interior
-    mileage
-
+    purchased_from_id
     transmission
     power_train
     drive_train
@@ -33,15 +27,11 @@ defmodule Stradale.Garages.Garage do
   @optional_fields ~w|
     id
     plate_number
-    date_out_stock
     consignement
-    purchase_from_last_name
-    sale_to_first_name
-    sale_to_last_name
-    sale_to_address
     permit
     notes
     added_by
+    sold_to_id
   |a
 
 
@@ -55,25 +45,13 @@ defmodule Stradale.Garages.Garage do
     field :odometer_reading, :string
     field :year, :string
     field :make, :string
-    field :style, :string
-
-    field :purchase_from_first_name, :string
-    field :purchase_from_last_name, :string
-    field :purchase_from_address, :string
-
-    field :sale_to_first_name, :string
-    field :sale_to_last_name, :string
-    field :sale_to_address, :string
 
     field :date_into_stock, :naive_datetime
-    field :date_out_stock, :naive_datetime
     field :serial_number, :string
-    field :color, :string
     field :consignement, :string
     field :permit, :string
     field :notes, :string
 
-    field :price, :string
     field :status, :string
     field :tax, :string
     field :model, :string
@@ -83,6 +61,9 @@ defmodule Stradale.Garages.Garage do
     field :power_train, :string
     field :transmission, :string
     field :drive_train, :string
+
+    belongs_to :purchased_from, Stradale.Clients.Client
+    belongs_to :sold_to, Stradale.Clients.Client
 
 
     field :added_by, :binary_id

@@ -18,7 +18,7 @@ defmodule Stradale.Garages do
 
   """
   def list_garages do
-    Repo.all(Garage)
+    Repo.all(Garage) |> Repo.preload([:purchased_from])
   end
 
   @doc """
