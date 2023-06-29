@@ -2,10 +2,10 @@ import Config
 
 # Configure your database
 config :stradale, Stradale.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "stadale_dev",
+  username: "tmtcgxdpvixvom",
+  password: "ac23efad5dccd7df376e3da6beb3b20ccaa2eb4fb31be49b2355d52d2d6648c1",
+  hostname: "ec2-54-205-67-130.compute-1.amazonaws.com",
+  database: "d3gchcdaoahbs9",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
