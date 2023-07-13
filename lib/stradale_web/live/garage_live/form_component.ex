@@ -26,7 +26,7 @@ defmodule StradaleWeb.GarageLive.FormComponent do
         <div class="col">
           <.input
             field={@form[:date_into_stock]}
-            type="datetime-local"
+            type="date"
             label="Date into Stock"
           />
         </div>
