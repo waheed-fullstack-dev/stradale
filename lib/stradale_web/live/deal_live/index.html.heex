@@ -64,7 +64,7 @@
     <% end %>
   </:action>
   <:action :let={{id, deal}}>
-    <%= if (@current_user.user_role === "admin" or @current_user.user_role === "finance_manager") and deal.approval_status == "Approved" and deal.approval_status == "Delivered"  do %>
+    <%= if (@current_user.user_role === "admin" or @current_user.user_role === "finance_manager") and deal.approval_status == "Approved" do %>
     <.link
       phx-click={JS.push("delivered", value: %{id: deal.id}) |> hide("##{id}")}
       data-confirm="Are you sure?"

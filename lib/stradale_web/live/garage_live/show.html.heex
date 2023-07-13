@@ -42,16 +42,18 @@
   </.list>
 </div>
 
-<div class="row">
-  <h2 class="py-5">Date out Stock</h2>
-  <.list>
-    <:item title="Frist Name"><%= @garage.sold_to.first_name %></:item>
-    <:item title="Last Name"><%= @garage.sold_to.last_name %></:item>
-    <:item title="Complete Name"><%= @garage.sold_to.first_name %> <%= @garage.sold_to.last_name %></:item>
-    <:item title="Address"><%= @garage.sold_to.street_address %> </:item>
-    <:item title="Date out of Stock"><%= @garage.date_out_stock %></:item>
-  </.list>
-</div>
+<%= if !is_nil(@garage.sold_to) do %>
+  <div class="row">
+    <h2 class="py-5">Date out Stock</h2>
+    <.list>
+        <:item title="Frist Name"><%= @garage.sold_to.first_name %></:item>
+        <:item title="Last Name"><%= @garage.sold_to.last_name %></:item>
+        <:item title="Complete Name"><%= @garage.sold_to.first_name %> <%= @garage.sold_to.last_name %></:item>
+        <:item title="Address"><%= @garage.sold_to.street_address %> </:item>
+        <:item title="Date out of Stock"><%= @garage.date_out_stock %></:item>
+    </.list>
+  </div>
+<% end %>
 
 <div class="row">
   <h2 class="py-5">Notes</h2>
